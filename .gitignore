@@ -1,0 +1,4 @@
+# Client documents — kept local only
+*.docx
+*.pdf
+extracted/
