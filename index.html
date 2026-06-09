@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBA 2025/26 — Consolidation Project Intelligence</title>
+<style>
+:root {
+  --bg:#080812; --bg2:#0d0d1a; --surface:rgba(255,255,255,0.04);
+  --border:rgba(255,255,255,0.08); --text:#e2e8f0; --muted:#94a3b8;
+  --r:16px;
+  --c1:#3B82F6; --c2:#06B6D4; --c3:#F59E0B; --c4:#8B5CF6;
+  --c5:#10B981; --c6:#EC4899; --c7:#F43F5E; --c8:#F97316; --c9:#A855F7;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,'Segoe UI',system-ui,sans-serif;font-size:16px;line-height:1.6;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 15%,rgba(59,130,246,.07) 0,transparent 55%),radial-gradient(ellipse at 85% 85%,rgba(168,85,247,.07) 0,transparent 55%);pointer-events:none;z-index:0;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:rgba(8,8,18,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1400px;margin:0 auto;height:62px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:0 clamp(1rem,4vw,3rem);}
+.nav-brand{font-size:.95rem;font-weight:700;letter-spacing:-.02em;color:#fff;white-space:nowrap;}
+.nav-brand span{background:linear-gradient(135deg,#3B82F6,#A855F7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-links{display:flex;gap:.15rem;list-style:none;}
+.nav-links a{display:block;padding:.35rem .85rem;border-radius:8px;color:var(--muted);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .2s,background .2s;cursor:pointer;}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,.07);}
+.nav-badge{font-size:.75rem;color:var(--muted);background:rgba(255,255,255,.06);border:1px solid var(--border);padding:.2rem .6rem;border-radius:20px;white-space:nowrap;}
+.nav-badge strong{color:#fff;}
+
+/* HERO */
+#hero{position:relative;z-index:1;padding:clamp(3rem,8vw,6rem) clamp(1rem,4vw,3rem) clamp(2rem,4vw,3rem);text-align:center;max-width:1400px;margin:0 auto;}
+.hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);color:#93c5fd;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .9rem;border-radius:20px;margin-bottom:1.5rem;}
+.hero-tag svg{width:14px;height:14px;}
+#hero h1{font-size:clamp(2rem,5vw,3.6rem);font-weight:800;letter-spacing:-.04em;line-height:1.1;color:#fff;margin-bottom:1rem;}
+#hero h1 span{background:linear-gradient(135deg,#3B82F6 0%,#A855F7 50%,#EC4899 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+#hero p{font-size:clamp(.95rem,2vw,1.15rem);color:var(--muted);max-width:600px;margin:0 auto 2.5rem;}
+.hero-stats{display:flex;justify-content:center;gap:clamp(1.5rem,4vw,3rem);flex-wrap:wrap;}
+.hstat{text-align:center;}
+.hstat-n{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:-.04em;color:#fff;line-height:1;}
+.hstat-l{font-size:.78rem;color:var(--muted);margin-top:.25rem;letter-spacing:.04em;text-transform:uppercase;}
+
+/* SECTION WRAPPER */
+.section{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:clamp(2rem,5vw,4rem) clamp(1rem,4vw,3rem);}
+.section-header{margin-bottom:2rem;}
+.section-title{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;letter-spacing:-.03em;color:#fff;margin-bottom:.4rem;}
+.section-sub{font-size:.9rem;color:var(--muted);}
+.section-divider{height:1px;background:linear-gradient(90deg,var(--border),transparent);margin-bottom:2rem;}
+</style>
+<style>
+/* FILTER BAR */
+.filter-bar{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;margin-bottom:2rem;}
+.search-wrap{position:relative;flex:1;min-width:200px;max-width:340px;}
+.search-wrap svg{position:absolute;left:.85rem;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted);pointer-events:none;}
+#search{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:10px;padding:.55rem .9rem .55rem 2.4rem;font-size:.875rem;outline:none;transition:border-color .2s;}
+#search::placeholder{color:var(--muted);}
+#search:focus{border-color:rgba(59,130,246,.5);}
+.filter-group{display:flex;gap:.4rem;flex-wrap:wrap;}
+.filter-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:.45rem .9rem;border-radius:8px;font-size:.8rem;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.filter-btn:hover{color:#fff;border-color:rgba(255,255,255,.2);}
+.filter-btn.active{color:#fff;background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.4);}
+.filter-sep{width:1px;height:28px;background:var(--border);align-self:center;}
+.results-count{margin-left:auto;font-size:.8rem;color:var(--muted);}
+.results-count strong{color:#fff;}
+
+/* CARDS GRID */
+#cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.25rem;}
+.project-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s;position:relative;overflow:hidden;opacity:0;transform:translateY(24px);}
+.project-card.visible{opacity:1;transform:translateY(0);transition:opacity .5s,transform .5s,border-color .25s,box-shadow .25s;}
+.project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);opacity:.7;transition:opacity .25s;}
+.project-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.16);box-shadow:0 12px 40px rgba(0,0,0,.4);cursor:pointer;}
+.project-card:hover::before{opacity:1;}
+.card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;gap:.5rem;}
+.card-client{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.25rem;}
+.card-title{font-size:1rem;font-weight:700;color:#fff;line-height:1.3;letter-spacing:-.01em;}
+.card-badges{display:flex;flex-direction:column;gap:.35rem;align-items:flex-end;flex-shrink:0;}
+.badge{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .6rem;border-radius:20px;font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap;}
+.badge-demand-over{background:rgba(220,38,38,.18);color:#fca5a5;border:1px solid rgba(220,38,38,.3);}
+.badge-demand-mod{background:rgba(217,119,6,.18);color:#fcd34d;border:1px solid rgba(217,119,6,.3);}
+.badge-demand-acc{background:rgba(5,150,105,.18);color:#6ee7b7;border:1px solid rgba(5,150,105,.3);}
+.badge-diff-med{background:rgba(59,130,246,.15);color:#93c5fd;border:1px solid rgba(59,130,246,.3);}
+.badge-diff-medh{background:rgba(245,158,11,.15);color:#fcd34d;border:1px solid rgba(245,158,11,.3);}
+.badge-diff-high{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3);}
+.badge-diff-vhigh{background:rgba(127,29,29,.3);color:#fca5a5;border:1px solid rgba(185,28,28,.4);}
+.badge-nda{background:rgba(168,85,247,.15);color:#d8b4fe;border:1px solid rgba(168,85,247,.3);}
+.card-core{font-size:.82rem;color:var(--muted);margin-bottom:1rem;line-height:1.4;}
+.card-skills{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.1rem;}
+.skill-tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#cbd5e1;font-size:.7rem;padding:.2rem .55rem;border-radius:6px;}
+.card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid var(--border);}
+.card-access{font-size:.75rem;color:var(--muted);}
+.card-access strong{color:var(--text);}
+.card-arrow{width:20px;height:20px;color:var(--muted);transition:color .2s,transform .2s;}
+.project-card:hover .card-arrow{color:var(--accent);transform:translateX(3px);}
+.demand-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
+</style>
+<style>
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:300;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .25s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:#0f0f1e;border:1px solid rgba(255,255,255,.12);border-radius:20px;width:100%;max-width:700px;max-height:90vh;overflow-y:auto;transform:translateY(20px) scale(.97);transition:transform .3s;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent;}
+.modal-overlay.open .modal{transform:translateY(0) scale(1);}
+.modal-accent-bar{height:4px;border-radius:20px 20px 0 0;background:var(--accent);}
+.modal-body{padding:2rem;}
+.modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;gap:1rem;}
+.modal-client{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem;}
+.modal-title{font-size:1.3rem;font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1.3;}
+.modal-close{background:rgba(255,255,255,.07);border:1px solid var(--border);color:var(--muted);width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .2s;}
+.modal-close:hover{background:rgba(255,255,255,.12);color:#fff;}
+.modal-close svg{width:16px;height:16px;}
+.modal-badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem;}
+.modal-section{margin-bottom:1.5rem;}
+.modal-section-title{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem;}
+.modal-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.deliver-list,.research-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.deliver-list li,.research-list li{display:flex;align-items:flex-start;gap:.6rem;font-size:.875rem;color:var(--text);}
+.deliver-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:.45em;}
+.research-list li::before{content:'';width:6px;height:6px;border-radius:2px;background:var(--accent);flex-shrink:0;margin-top:.45em;}
+.hard-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:1rem;font-size:.85rem;color:#fca5a5;line-height:1.5;}
+.modal-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;}
+.meta-item{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:.85rem;}
+.meta-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.25rem;}
+.meta-value{font-size:.9rem;color:#fff;font-weight:600;}
+
+/* TEAM SECTION */
+#teams{background:rgba(255,255,255,.015);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.chart-wrap{margin-bottom:2.5rem;}
+.chart-title{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:1.25rem;}
+.chart-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;}
+.chart-label{width:160px;font-size:.75rem;color:var(--muted);text-align:right;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.chart-bar-wrap{flex:1;background:rgba(255,255,255,.05);border-radius:4px;height:22px;overflow:hidden;cursor:pointer;transition:background .2s;}
+.chart-bar-wrap:hover{background:rgba(255,255,255,.08);}
+.chart-bar{height:100%;border-radius:4px;width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;justify-content:flex-end;padding-right:.5rem;}
+.chart-bar span{font-size:.7rem;font-weight:700;color:#fff;white-space:nowrap;}
+.chart-count{width:28px;font-size:.75rem;color:var(--muted);font-weight:600;flex-shrink:0;}
+
+/* PROJECT TABS */
+.proj-tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem;}
+.proj-tab{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:.4rem .8rem;border-radius:8px;font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.proj-tab:hover{color:#fff;border-color:rgba(255,255,255,.2);}
+.proj-tab.active{color:#fff;border-color:var(--tc);}
+</style>
+<style>
+/* TEAM GRID */
+.team-panel{display:none;}
+.team-panel.active{display:block;}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.75rem;}
+.team-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1rem;transition:border-color .2s,transform .2s;}
+.team-card:hover{border-color:rgba(255,255,255,.16);transform:translateY(-2px);}
+.team-card.primary-pick{border-left:3px solid var(--tc);}
+.team-flag{font-size:1.3rem;margin-bottom:.5rem;line-height:1;}
+.team-name{font-size:.875rem;font-weight:700;color:#fff;margin-bottom:.2rem;}
+.team-role{font-size:.75rem;color:var(--muted);}
+.team-company{font-size:.72rem;color:var(--muted);opacity:.8;}
+.pick-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;}
+.pick-primary{color:var(--tc);}
+.pick-likely{color:var(--muted);}
+.team-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.team-section-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
+.team-count-badge{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--muted);font-size:.7rem;font-weight:600;padding:.15rem .55rem;border-radius:20px;}
+
+/* SCROLL ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{opacity:0;transform:translateY(28px);}
+.fade-up.visible{animation:fadeUp .6s ease forwards;}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  #cards-grid{grid-template-columns:1fr;}
+  .modal-meta-grid{grid-template-columns:1fr;}
+  .nav-badge{display:none;}
+  .chart-label{width:110px;}
+  .filter-sep{display:none;}
+}
+@media(max-width:480px){
+  .nav-links{display:none;}
+  .hero-stats{gap:1rem;}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important;}
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:3px;}
+
+/* FOOTER */
+footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:rgba(148,163,184,.4);border-top:1px solid var(--border);position:relative;z-index:1;}
+</style>
+
+<!-- ===== BODY ===== -->
+<body>
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">Bath <span>MBA 2025/26</span></div>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#teams">Team Predictor</a></li>
+    </ul>
+    <div class="nav-badge">Class of <strong>37</strong> &nbsp;|&nbsp; <strong>9</strong> Projects</div>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-tag">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    Consolidation Project Intelligence
+  </div>
+  <h1>Choose Your Project.<br><span>Know Your Team.</span></h1>
+  <p>Explore all 9 client briefs, predict who'll be on each team, and choose strategically before the selection window opens.</p>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-n">9</div><div class="hstat-l">Client Projects</div></div>
+    <div class="hstat"><div class="hstat-n">37</div><div class="hstat-l">MBA Students</div></div>
+    <div class="hstat"><div class="hstat-n">8</div><div class="hstat-l">Nationalities</div></div>
+    <div class="hstat"><div class="hstat-n">3</div><div class="hstat-l">Picks Each</div></div>
+  </div>
+</section>
+<!-- PROJECTS SECTION -->
+<section id="projects" class="section">
+  <div class="section-header fade-up">
+    <h2 class="section-title">Project Explorer</h2>
+    <p class="section-sub">Click any card to see full brief details, deliverables, and what makes it hard.</p>
+  </div>
+  <div class="filter-bar fade-up">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="search" placeholder="Search projects, skills, clients...">
+    </div>
+    <div class="filter-group">
+      <button class="filter-btn active" data-filter="all" data-type="demand">All Demand</button>
+      <button class="filter-btn" data-filter="Oversubscribed" data-type="demand">Oversubscribed</button>
+      <button class="filter-btn" data-filter="Moderate" data-type="demand">Moderate</button>
+      <button class="filter-btn" data-filter="Accessible" data-type="demand">Accessible</button>
+    </div>
+    <div class="filter-sep"></div>
+    <div class="filter-group">
+      <button class="filter-btn active" data-filter="all" data-type="diff">All Difficulty</button>
+      <button class="filter-btn" data-filter="Medium" data-type="diff">Medium</button>
+      <button class="filter-btn" data-filter="High" data-type="diff">High</button>
+    </div>
+    <div class="results-count"><strong id="visible-count">9</strong> projects</div>
+  </div>
+  <div id="cards-grid"></div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal" style="--accent:#3B82F6">
+    <div class="modal-accent-bar"></div>
+    <div class="modal-body">
+      <div class="modal-header">
+        <div>
+          <div class="modal-client" id="m-client"></div>
+          <div class="modal-title" id="m-title"></div>
+        </div>
+        <button class="modal-close" id="modal-close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-badges" id="m-badges"></div>
+      <div class="modal-meta-grid" id="m-meta"></div>
+      <div style="height:1.25rem"></div>
+      <div class="modal-section">
+        <div class="modal-section-title">Core Ask</div>
+        <p style="font-size:.9rem;color:var(--text);line-height:1.6;" id="m-core"></p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">What to Deliver</div>
+        <ul class="deliver-list" id="m-deliver"></ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Research Questions</div>
+        <ul class="research-list" id="m-research"></ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Key Skills Required</div>
+        <div class="card-skills" id="m-skills" style="margin-bottom:0"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">What Makes This Hard</div>
+        <div class="hard-box" id="m-hard"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEAMS SECTION -->
+<section id="teams" class="section">
+  <div class="section-header fade-up">
+    <h2 class="section-title">Team Prediction Matrix</h2>
+    <p class="section-sub">Predicted picks based on each student's industry background, role, and career signals. Select a project to see who's likely on your team.</p>
+  </div>
+  <div class="chart-wrap fade-up">
+    <div class="chart-title">Predicted Project Demand — Number of Students Expected to List Each Project in Top 3</div>
+    <div id="demand-chart"></div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="fade-up">
+    <div style="margin-bottom:1rem;font-size:.85rem;color:var(--muted);">
+      <span style="display:inline-flex;align-items:center;gap:.4rem;margin-right:1.5rem;">
+        <span style="width:12px;height:12px;border-radius:3px;background:rgba(59,130,246,.4);border-left:3px solid #3B82F6;display:inline-block"></span> Primary pick (high probability)
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:.4rem;">
+        <span style="width:12px;height:12px;border-radius:3px;background:rgba(255,255,255,.05);display:inline-block"></span> Also likely (backup pick)
+      </span>
+    </div>
+    <div class="proj-tabs" id="proj-tabs"></div>
+    <div id="team-panels"></div>
+  </div>
+</section>
+
+<footer>Bath Full-Time MBA 2025/26 &nbsp;&bull;&nbsp; Consolidation Project Intelligence &nbsp;&bull;&nbsp; Prediction model based on class profile analysis</footer>
+<script>
+const PROJECTS = [
+  {id:'ibm1',client:'IBM',title:'Positioning the AI Race League',subtitle:'F1 of Student AI Competitions',color:'#3B82F6',
+   core:'Build the brand and marketing strategy to make IBM\'s AI Race League the most recognised student AI competition globally — from positioning to campaign assets.',
+   skills:['Marketing Strategy','Competitive Analysis','Campaign Design','Survey Research','Brand Positioning'],
+   access:'3–5 hours',nda:false,difficulty:'Medium',demand:'Oversubscribed',demandCount:14,
+   deadline:null,
+   deliver:['Brand positioning statement','Messaging framework for students, universities & partners','Campaign concept (Race to AI Excellence)','Visual & storytelling guidelines','Sample social media & university pack assets'],
+   research:['How to market the AI Race League and IBM Bob (AI tutor)?','How to make it the most recognised student AI competition globally?'],
+   hard:'Open-ended — IBM hasn\'t done the strategic thinking yet. You\'re building the brand from scratch with no existing playbook and limited client guidance.',
+   team:{
+     primary:[
+       {name:'Natsuki Kimura',flag:'🇯🇵',nat:'Japanese',role:'Branding & Product Comms Specialist',co:'Bosch Japan'},
+       {name:'Nikita Bahri',flag:'🇮🇳',nat:'Indian',role:'Key Account Manager',co:'Sociowash (Digital Marketing)'},
+       {name:'Shivani Chotai',flag:'🇮🇳',nat:'Indian',role:'Asst Manager',co:'Yash Raj Films'},
+       {name:'Jaimin Basrani',flag:'🇮🇳',nat:'Indian',role:'Co-founder',co:'BACKSPACED.IN Clothing'},
+     ],
+     likely:[
+       {name:'Aayushi Mehta',flag:'🇮🇳',nat:'Indian',role:'Talent Acquisition Lead',co:'Sports GameX'},
+       {name:'Kartik Bansal',flag:'🇮🇳',nat:'Indian',role:'Sales & Purchase Head',co:'Retail'},
+       {name:'Malcolm Marega',flag:'🇰🇪',nat:'Kenyan',role:'Admin Assistant',co:'Currys Group UK'},
+       {name:'Freshy Pornapirak',flag:'🇹🇭',nat:'Thai',role:'BD Associate',co:'Skooldio (EdTech)'},
+       {name:'Mohd Zaman',flag:'🇮🇳',nat:'Indian',role:'Junior Manager',co:'Gulab Resort'},
+       {name:'Shambhavi Upadhyay',flag:'🇮🇳',nat:'Indian',role:'Lead Generation Specialist',co:'Bharat Bijlee'},
+       {name:'Sourav Kumar',flag:'🇮🇳',nat:'Indian',role:'BD Executive',co:'PIPRA Solutions'},
+       {name:'Wen-Qi Wei',flag:'🇹🇼',nat:'Taiwanese',role:'Project Sales Rep',co:'Young Yak Enterprise'},
+     ]
+   }
+  },
+  {id:'ibm2',client:'IBM',title:'Scaling the AI Race League',subtitle:'Operational Excellence Across Universities',color:'#06B6D4',
+   core:'Design the operating model — systems, processes, governance — to run the AI Race League consistently at scale across 200+ universities in multiple countries.',
+   skills:['Operations Management','Platform Strategy','KPI Framework Design','Scale Governance','Risk Planning'],
+   access:'3–5 hours',nda:false,difficulty:'Medium',demand:'Moderate',demandCount:9,
+   deadline:null,
+   deliver:['End-to-end operating model (onboarding → judging)','Platform & tooling strategy','Risk & governance plan','Resource planning model','KPI dashboard design'],
+   research:['How can we scale gamified learning across universities?','What is the mechanism to scale consistently at 200+ sites?'],
+   hard:'No existing blueprint — you\'re designing from scratch. Requires operations management theory benchmarked against multi-site competition models like Formula Student.',
+   team:{
+     primary:[
+       {name:'Manoj Rawat',flag:'🇮🇳',nat:'Indian',role:'Customer Service & Operations Exec',co:'iEnergizer IT Services'},
+       {name:'Meiji Toyasit',flag:'🇹🇭',nat:'Thai',role:'Scrum Master',co:'ExxonMobil'},
+     ],
+     likely:[
+       {name:'Gautam Goyal',flag:'🇮🇳',nat:'Indian',role:'Software Developer',co:'Nextiva / Simplify360'},
+       {name:'Kartik Bansal',flag:'🇮🇳',nat:'Indian',role:'Sales & Purchase Head',co:'Retail'},
+       {name:'Manu Vardhan',flag:'🇮🇳',nat:'Indian',role:'SAP Senior Consultant',co:'Infosys'},
+       {name:'Malcolm Marega',flag:'🇰🇪',nat:'Kenyan',role:'Admin Assistant',co:'Currys Group UK'},
+       {name:'Nikita Bahri',flag:'🇮🇳',nat:'Indian',role:'Key Account Manager',co:'Sociowash'},
+       {name:'Pooja Thakur',flag:'🇮🇳',nat:'Indian',role:'BD Lead',co:'Cloud202'},
+       {name:'Sourav Kumar',flag:'🇮🇳',nat:'Indian',role:'BD Executive',co:'PIPRA Solutions'},
+     ]
+   }
+  },
+  {id:'aecom',client:'AECOM',title:'Impact of AI on Construction Consultants',subtitle:'Digital Transformation Strategy',color:'#F59E0B',
+   core:'Assess what AI will do to the consulting profession in construction — which roles change, what skills matter, and how AECOM should position its digital strategy to stay competitive.',
+   skills:['Digital Transformation Strategy','Change Management','Competitor Benchmarking','Strategic Positioning','External Research'],
+   access:'Very Low (kick-off + final only)',nda:false,difficulty:'Medium-High',demand:'Accessible',demandCount:6,
+   deadline:null,
+   deliver:['Practical recommendations grounded in real-world examples','ROI analysis of AI adoption for AECOM','Workplace culture impact assessment','Digital strategy positioning guidance'],
+   research:['What will AI mean for the construction professional of the future?','What value will this create for AECOM\'s clients?','How can AECOM maximise the opportunities?'],
+   hard:'Minimal client access — Director only available at kick-off and final presentation. Most research is independent. Must produce director-level quality without handholding.',
+   team:{
+     primary:[
+       {name:'Mukull Kedar',flag:'🇮🇳',nat:'Indian',role:'Construction PM & Administration',co:'Base4 Architects & Engineers'},
+       {name:'Jung-Chen Chang',flag:'🇹🇼',nat:'Taiwanese',role:'General Manager',co:'TaSanYu Construction'},
+     ],
+     likely:[
+       {name:'Mayank Kumar',flag:'🇮🇳',nat:'Indian',role:'Consultant',co:'Shortsum'},
+       {name:'Natsuki Kimura',flag:'🇯🇵',nat:'Japanese',role:'Branding Specialist',co:'Bosch Japan'},
+       {name:'Ruthvik Rajkumar',flag:'🇮🇳',nat:'Indian',role:'Founder',co:'Valence Advanced Materials'},
+       {name:'Sonuc Erbas',flag:'🇹🇷',nat:'Turkish',role:'Co-Founder & GM',co:'Sonsuz Enerji (Energy)'},
+       {name:'Supawat Limpongsanuruk',flag:'🇹🇭',nat:'Thai',role:'Senior Sales Engineer',co:'Sumitomo Electric Hardmetal'},
+     ]
+   }
+  },
+];
+</script>
+<script>
+PROJECTS.push(
+  {id:'leadership',client:'Leadership Together',title:'M&A in the Academy Sector',subtitle:'£56M Trust — 9 Schools, 7,000 Children',color:'#8B5CF6',
+   core:'A live organisational crisis: a £56M academy trust faces adverse publicity and leadership instability. Help the board decide between internal transformation, merger, or school transfer — by Autumn 2026.',
+   skills:['M&A Strategy','Turnaround Management','Financial Analysis','Stakeholder Management','Nolan Principles'],
+   access:'6–10 hours',nda:true,difficulty:'High',demand:'Moderate',demandCount:9,
+   deadline:'Autumn 2026',
+   deliver:['Strategic options assessment with risk/opportunity analysis','Potential merger partner profiles','CEO candidate skill profile','Implementation plans for each route'],
+   research:['What actions could reduce the risk of organisational failure?','What would viable merger partners look like?','What skill set would a new CEO candidate need?'],
+   hard:'Live crisis with real stakes — children\'s education. Politically sensitive, requires deep education sector governance knowledge (niche). NDA required. Board-level audience.',
+   team:{
+     primary:[
+       {name:'Vibhanshu Tiwari',flag:'🇮🇳',nat:'Indian',role:'Transfer Pricing Senior',co:'Ernst & Young (EY)'},
+       {name:'Tai-Hsuan Wen',flag:'🇹🇼',nat:'Taiwanese',role:'Government Officer',co:'Taiwan Government'},
+     ],
+     likely:[
+       {name:'Aayushi Mehta',flag:'🇮🇳',nat:'Indian',role:'Talent Acquisition Lead',co:'Sports GameX'},
+       {name:'Anuja Diwikar',flag:'🇮🇳',nat:'Indian',role:'Senior Analyst',co:'Finex Hong Kong'},
+       {name:'Ishita Jain',flag:'🇮🇳',nat:'Indian',role:'CEO & Founder',co:'HealthyVie Consultancy'},
+       {name:'Jaimin Basrani',flag:'🇮🇳',nat:'Indian',role:'Co-founder',co:'BACKSPACED.IN'},
+       {name:'Yumiko Okada',flag:'🇯🇵',nat:'Japanese',role:'Immigration Manager',co:'Newland Chase Japan'},
+       {name:'Navya Mittal',flag:'🇮🇳',nat:'Indian',role:'Asst Manager Products',co:'Edelweiss Asset Mgmt'},
+       {name:'Patheo Mitra',flag:'🇮🇳',nat:'Indian',role:'Asst Manager Audit',co:'Guha & Matilal'},
+     ]
+   }
+  },
+  {id:'lloyds',client:'Lloyds Banking Group',title:'Reimagining AI-Enabled Enablement Functions',subtitle:'Future Operating Model for Customer Servicing',color:'#10B981',
+   core:'Redesign the support and enablement functions (training, quality, risk, governance) for a world where AI handles customer interactions — not humans doing process-driven work.',
+   skills:['Operating Model Design','AI Governance','Consumer Duty Compliance','Risk Management (FCA)','Change Management'],
+   access:'Medium (junior to exec stakeholders)',nda:false,difficulty:'Very High',demand:'Moderate',demandCount:8,
+   deadline:null,
+   deliver:['Future operating model for enablement/support functions','Risk & control framework for AI-enabled processes','Capability & skills framework','Governance structures to evidence fair outcomes under Consumer Duty','Executive-level proposal'],
+   research:['How do you embed risk management into AI decision-making from design to live?','What skills and enablement structures sustain a decision-led AI model?','What governance frameworks evidence fair outcomes under Consumer Duty?'],
+   hard:'Consumer Duty is a live FCA regulatory requirement. AI governance in financial services is genuinely complex. Must understand both regulatory landscape and large-scale operational realities.',
+   team:{
+     primary:[
+       {name:'Jacob Chinsumran',flag:'🇹🇭',nat:'Thai',role:'Senior IT Auditor',co:'KPMG Thailand'},
+       {name:'Shauryashrestha Karpatne',flag:'🇮🇳',nat:'Indian',role:'Chief Operating Officer',co:'Protect India Insurance Broking'},
+       {name:'Navya Mittal',flag:'🇮🇳',nat:'Indian',role:'Asst Manager Products',co:'Edelweiss Asset Management'},
+       {name:'Patheo Mitra',flag:'🇮🇳',nat:'Indian',role:'Asst Manager Audit',co:'Guha & Matilal'},
+     ],
+     likely:[
+       {name:'Anuja Diwikar',flag:'🇮🇳',nat:'Indian',role:'Senior Analyst',co:'Finex Hong Kong'},
+       {name:'Vibhanshu Tiwari',flag:'🇮🇳',nat:'Indian',role:'Transfer Pricing Senior',co:'Ernst & Young'},
+       {name:'Yumiko Okada',flag:'🇯🇵',nat:'Japanese',role:'Immigration Manager',co:'Newland Chase Japan'},
+     ]
+   }
+  },
+  {id:'nhs-avt',client:'NHS RUH Bath',title:'Benefits Review of Ambient Voice Technology',subtitle:'AI Clinical Documentation in Oncology',color:'#EC4899',
+   core:'Evaluate whether AVT — AI that listens to consultations and auto-generates clinical letters — is actually working in Oncology. Build a rigorous financial and operational benefits case for trust-wide rollout.',
+   skills:['Benefits Realisation Methodology','Financial Modelling','Healthcare Operations','Qualitative Research','Change Management'],
+   access:'High (~1h/week + half-day induction)',nda:false,difficulty:'Medium',demand:'Accessible',demandCount:6,
+   deadline:null,
+   deliver:['Quantified operational & clinical benefits (time savings, backlog, turnaround)','Softer benefits analysis (burnout, MDT working, staff experience)','Adoption success factors','Full cost-benefit analysis and ROI at scale'],
+   research:['What operational/clinical benefits does AVT deliver vs traditional dictation?','What factors influence successful adoption?','What is the cost-benefit case for trust-wide rollout?'],
+   hard:'Healthcare context has a steep learning curve. Clinical workflows differ fundamentally from commercial operations. Ethically sensitive data handling. Financial modelling for clinical tech is genuinely technical.',
+   team:{
+     primary:[
+       {name:'Ishita Jain',flag:'🇮🇳',nat:'Indian',role:'CEO & Founder',co:'HealthyVie Consultancy'},
+       {name:'Mia Liu',flag:'🇨🇳',nat:'Chinese',role:'Asst to Chairman',co:'Malo Medical Management'},
+     ],
+     likely:[
+       {name:'Arpan Patel',flag:'🇮🇳',nat:'Indian',role:'Associate Consultant',co:'ZS Associates (Healthcare)'},
+       {name:'Aditi Bhardwaj',flag:'🇮🇳',nat:'Indian',role:'Sales Specialist',co:'Astellas Pharma India'},
+       {name:'Tai-Hsuan Wen',flag:'🇹🇼',nat:'Taiwanese',role:'Government Officer',co:'Taiwan Government'},
+       {name:'Shivani Chotai',flag:'🇮🇳',nat:'Indian',role:'Asst Manager',co:'Yash Raj Films'},
+     ]
+   }
+  }
+);
+</script>
+<script>
+PROJECTS.push(
+  {id:'nhs-nihr',client:'NHS NIHR',title:'150-Day Clinical Trial Setup Improvement',subtitle:'Stage 2 & 3 Bottleneck Elimination',color:'#F43F5E',
+   core:'RUH Bath is failing the UK government\'s 150-day clinical trial setup mandate — 20% of NHS research funding is at stake. Diagnose Stage 2 & 3 bottlenecks and design a realistic improvement roadmap.',
+   skills:['Lean / Six Sigma','Root Cause Analysis','Operational Benchmarking','Project Management','Healthcare Operations'],
+   access:'High (4h/week + hot desk on site)',nda:true,difficulty:'Medium-High',demand:'Moderate',demandCount:9,
+   deadline:null,
+   deliver:['Root cause analysis of Stage 2 & Stage 3 bottlenecks','Benchmarking against NHS sites that hit 150-day target','Prioritised improvement roadmap (quick wins + structural)','Practical tools: process maps, checklists, escalation protocols'],
+   research:['What barriers prevent RUH from meeting Stage 2/3 targets (commercial vs non-commercial trials)?','What process improvements let comparable NHS sites hit 150 days?','How should the R&D dept redesign workflows from ethics approval to first participant?'],
+   hard:'Clinical trial processes are specialist knowledge — steep learning curve for weeks 1-3. Complex multi-stakeholder environment. Commercially sensitive contracts restrict disclosure.',
+   team:{
+     primary:[
+       {name:'Arpan Patel',flag:'🇮🇳',nat:'Indian',role:'Associate Consultant',co:'ZS Associates (Healthcare)'},
+       {name:'Aditi Bhardwaj',flag:'🇮🇳',nat:'Indian',role:'Sales Specialist',co:'Astellas Pharma India'},
+     ],
+     likely:[
+       {name:'Jacob Chinsumran',flag:'🇹🇭',nat:'Thai',role:'Senior IT Auditor',co:'KPMG Thailand'},
+       {name:'Manoj Rawat',flag:'🇮🇳',nat:'Indian',role:'Customer Service & Ops',co:'iEnergizer IT Services'},
+       {name:'Mukull Kedar',flag:'🇮🇳',nat:'Indian',role:'Construction PM',co:'Base4 Architects & Engineers'},
+       {name:'Patheo Mitra',flag:'🇮🇳',nat:'Indian',role:'Asst Manager Audit',co:'Guha & Matilal'},
+       {name:'Shauryashrestha Karpatne',flag:'🇮🇳',nat:'Indian',role:'COO',co:'Protect India Insurance'},
+       {name:'Tai-Hsuan Wen',flag:'🇹🇼',nat:'Taiwanese',role:'Government Officer',co:'Taiwan Government'},
+       {name:'Yumiko Okada',flag:'🇯🇵',nat:'Japanese',role:'Immigration Manager',co:'Newland Chase Japan'},
+       {name:'Mia Liu',flag:'🇨🇳',nat:'Chinese',role:'Asst to Chairman',co:'Malo Medical Management'},
+     ]
+   }
+  },
+  {id:'rotork-eco',client:'Rotork',title:'Evaluation of a Digital Ecosystem',subtitle:'Platform Strategy for Industrial B2B',color:'#F97316',
+   core:'Should Rotork build a connected digital platform linking products, data, customers, and partners? Evaluate what it would look like, the commercial opportunities, the challenges, and how to build it.',
+   skills:['Platform Strategy','Industrial IoT','Business Model Innovation','Competitor Benchmarking (GE/Siemens/ABB)','Technology Architecture'],
+   access:'6–10 hours',nda:true,difficulty:'High',demand:'Oversubscribed',demandCount:11,
+   deadline:'2nd September',
+   deliver:['End-to-end digital ecosystem vision','Opportunities & gaps analysis','Prioritised recommendations','Success metrics (adoption, efficiency, revenue)','Risk management & scalability approach'],
+   research:['How should Rotork design a scalable, integrated digital ecosystem architecture?','How can data & analytics improve customer experience and operational performance?','Which digital business models can drive new revenue and innovation?'],
+   hard:'Industrial IoT + platform economics is a complex combination. B2B manufacturing digital ecosystems are not simple. Scoping ambition vs feasibility is critical. Presentation deadline is 2nd September — earliest of the technical projects.',
+   team:{
+     primary:[
+       {name:'Gautam Goyal',flag:'🇮🇳',nat:'Indian',role:'Software Developer',co:'Nextiva / Simplify360'},
+       {name:'Manu Vardhan',flag:'🇮🇳',nat:'Indian',role:'SAP Senior Consultant',co:'Infosys'},
+       {name:'Sonuc Erbas',flag:'🇹🇷',nat:'Turkish',role:'Co-Founder & GM',co:'Sonsuz Enerji AS (Energy)'},
+       {name:'Tamilarasan Durai',flag:'🇮🇳',nat:'Indian',role:'Senior System Associate',co:'Infosys'},
+     ],
+     likely:[
+       {name:'Jung-Chen Chang',flag:'🇹🇼',nat:'Taiwanese',role:'General Manager',co:'TaSanYu Construction'},
+       {name:'Meiji Toyasit',flag:'🇹🇭',nat:'Thai',role:'Scrum Master',co:'ExxonMobil'},
+       {name:'Olivia Wu',flag:'🇹🇼',nat:'Taiwanese',role:'Product Manager',co:'CyberLink Corp.'},
+       {name:'Pooja Thakur',flag:'🇮🇳',nat:'Indian',role:'BD Lead',co:'Cloud202'},
+       {name:'Ruthvik Rajkumar',flag:'🇮🇳',nat:'Indian',role:'Founder',co:'Valence Advanced Materials'},
+     ]
+   }
+  },
+  {id:'rotork-ai',client:'Rotork',title:'AI & Knowledgebases for Customer Experience',subtitle:'Global B2B Customer Service Business Case',color:'#A855F7',
+   core:'Build the business case for a centralised knowledgebase + AI-assisted workflows to fix fragmented knowledge, inconsistent service quality, and poor AHT/CSAT/NPS across Rotork\'s global customer service teams.',
+   skills:['Business Case Development','Operations & Process Improvement','AI in Customer Service','Competitive Benchmarking (AUMA/Emerson)','International Change Management'],
+   access:'6–10 hours',nda:true,difficulty:'High',demand:'Oversubscribed',demandCount:12,
+   deadline:'25–27 August',
+   deliver:['Business case for knowledgebase + AI workflows','Robust commercial analysis (costs vs benefits)','Competitive benchmarking vs AUMA & Emerson','Implementation approach & global applicability','Future-proofing considerations'],
+   research:['Does a structured KB + AI improve efficiency, consistency, and outcomes in global B2B customer service?','Do benefits outweigh implementation costs and change management requirements?','How are AUMA and Emerson approaching this — and what can Rotork learn?'],
+   hard:'Earliest presentation deadline (25–27 August) compresses the timeline significantly. Financial modelling requires real cost data — only released after proposal submission. Working blind on key numbers.',
+   team:{
+     primary:[
+       {name:'Manoj Rawat',flag:'🇮🇳',nat:'Indian',role:'Customer Service & Ops Exec',co:'iEnergizer IT Services'},
+       {name:'Supawat Limpongsanuruk',flag:'🇹🇭',nat:'Thai',role:'Senior Sales Engineer',co:'Sumitomo Electric Hardmetal'},
+     ],
+     likely:[
+       {name:'Anuja Diwikar',flag:'🇮🇳',nat:'Indian',role:'Senior Analyst',co:'Finex Hong Kong'},
+       {name:'Gautam Goyal',flag:'🇮🇳',nat:'Indian',role:'Software Developer',co:'Nextiva / Simplify360'},
+       {name:'Jacob Chinsumran',flag:'🇹🇭',nat:'Thai',role:'Senior IT Auditor',co:'KPMG Thailand'},
+       {name:'Malcolm Marega',flag:'🇰🇪',nat:'Kenyan',role:'Admin Assistant',co:'Currys Group UK'},
+       {name:'Manu Vardhan',flag:'🇮🇳',nat:'Indian',role:'SAP Senior Consultant',co:'Infosys'},
+       {name:'Navya Mittal',flag:'🇮🇳',nat:'Indian',role:'Asst Manager Products',co:'Edelweiss Asset Mgmt'},
+       {name:'Nikita Bahri',flag:'🇮🇳',nat:'Indian',role:'Key Account Manager',co:'Sociowash'},
+       {name:'Olivia Wu',flag:'🇹🇼',nat:'Taiwanese',role:'Product Manager',co:'CyberLink Corp.'},
+       {name:'Shambhavi Upadhyay',flag:'🇮🇳',nat:'Indian',role:'Lead Generation Specialist',co:'Bharat Bijlee'},
+       {name:'Wen-Qi Wei',flag:'🇹🇼',nat:'Taiwanese',role:'Project Sales Rep',co:'Young Yak Enterprise'},
+     ]
+   }
+  }
+);
+</script>
+<script>
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+const diffClass = d => ({'Medium':'badge-diff-med','Medium-High':'badge-diff-medh','High':'badge-diff-high','Very High':'badge-diff-vhigh'}[d]||'badge-diff-med');
+const demandClass = d => ({'Oversubscribed':'badge-demand-over','Moderate':'badge-demand-mod','Accessible':'badge-demand-acc'}[d]||'badge-demand-mod');
+const demandColor = d => ({'Oversubscribed':'#dc2626','Moderate':'#d97706','Accessible':'#059669'}[d]||'#d97706');
+
+// ── RENDER CARDS ─────────────────────────────────────────────────────────────
+function renderCards(list) {
+  const grid = document.getElementById('cards-grid');
+  grid.innerHTML = list.map((p,i) => `
+    <div class="project-card" style="--accent:${p.color}" data-id="${p.id}" data-diff="${p.difficulty}" data-demand="${p.demand}">
+      <div class="card-header">
+        <div>
+          <div class="card-client">${p.client}</div>
+          <div class="card-title">${p.title}</div>
+        </div>
+        <div class="card-badges">
+          <span class="badge ${demandClass(p.demand)}">
+            <span class="demand-dot" style="background:${demandColor(p.demand)}"></span>
+            ${p.demand} · ${p.demandCount}
+          </span>
+          <span class="badge ${diffClass(p.difficulty)}">${p.difficulty}</span>
+          ${p.nda ? '<span class="badge badge-nda">NDA</span>' : ''}
+        </div>
+      </div>
+      <p class="card-core">${p.core.substring(0,110)}…</p>
+      <div class="card-skills">${p.skills.map(s=>`<span class="skill-tag">${s}</span>`).join('')}</div>
+      <div class="card-footer">
+        <div class="card-access">Access: <strong>${p.access}</strong></div>
+        <svg class="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </div>`).join('');
+  document.getElementById('visible-count').textContent = list.length;
+  // stagger animation
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.project-card').forEach((el,i) => {
+      setTimeout(() => el.classList.add('visible'), i * 80);
+    });
+  });
+  // click handlers
+  document.querySelectorAll('.project-card').forEach(el => {
+    el.addEventListener('click', () => openModal(el.dataset.id));
+  });
+}
+
+// ── FILTER ───────────────────────────────────────────────────────────────────
+let activeDemand = 'all', activeDiff = 'all', searchQ = '';
+function applyFilters() {
+  let list = PROJECTS.filter(p => {
+    const matchDemand = activeDemand === 'all' || p.demand === activeDemand;
+    const matchDiff = activeDiff === 'all' || p.difficulty.startsWith(activeDiff);
+    const q = searchQ.toLowerCase();
+    const matchSearch = !q || p.title.toLowerCase().includes(q) || p.client.toLowerCase().includes(q)
+      || p.core.toLowerCase().includes(q) || p.skills.some(s => s.toLowerCase().includes(q));
+    return matchDemand && matchDiff && matchSearch;
+  });
+  renderCards(list);
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.type, f = btn.dataset.filter;
+    document.querySelectorAll(`.filter-btn[data-type="${t}"]`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (t === 'demand') activeDemand = f;
+    else activeDiff = f;
+    applyFilters();
+  });
+});
+
+document.getElementById('search').addEventListener('input', e => {
+  searchQ = e.target.value;
+  applyFilters();
+});
+
+// ── MODAL ────────────────────────────────────────────────────────────────────
+function openModal(id) {
+  const p = PROJECTS.find(x => x.id === id);
+  if (!p) return;
+  const modal = document.getElementById('modal');
+  const overlay = document.getElementById('modal-overlay');
+  modal.style.setProperty('--accent', p.color);
+  modal.querySelector('.modal-accent-bar').style.background = p.color;
+  document.getElementById('m-client').textContent = p.client;
+  document.getElementById('m-title').textContent = p.title;
+  document.getElementById('m-core').textContent = p.core;
+  document.getElementById('m-hard').textContent = p.hard;
+  document.getElementById('m-badges').innerHTML =
+    `<span class="badge ${demandClass(p.demand)}"><span class="demand-dot" style="background:${demandColor(p.demand)}"></span>${p.demand} · ${p.demandCount} students</span>
+     <span class="badge ${diffClass(p.difficulty)}">${p.difficulty}</span>
+     ${p.nda ? '<span class="badge badge-nda">NDA Required</span>' : ''}
+     ${p.deadline ? `<span class="badge" style="background:rgba(249,115,22,.15);color:#fdba74;border:1px solid rgba(249,115,22,.3)">Deadline: ${p.deadline}</span>` : ''}`;
+  document.getElementById('m-meta').innerHTML =
+    `<div class="meta-item"><div class="meta-label">Client Access</div><div class="meta-value">${p.access}</div></div>
+     <div class="meta-item"><div class="meta-label">Core Approach</div><div class="meta-value">${p.core.split('.')[0]}</div></div>`;
+  document.getElementById('m-deliver').innerHTML = p.deliver.map(d => `<li>${d}</li>`).join('');
+  document.getElementById('m-research').innerHTML = p.research.map(r => `<li>${r}</li>`).join('');
+  document.getElementById('m-skills').innerHTML = p.skills.map(s => `<span class="skill-tag">${s}</span>`).join('');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('modal-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+</script>
+<script>
+// ── DEMAND CHART ─────────────────────────────────────────────────────────────
+function renderChart() {
+  const max = Math.max(...PROJECTS.map(p => p.demandCount));
+  const container = document.getElementById('demand-chart');
+  container.innerHTML = PROJECTS.map(p => `
+    <div class="chart-row" onclick="selectProject('${p.id}')">
+      <div class="chart-label">${p.client === 'NHS RUH Bath' ? 'NHS AVT' : p.client === 'NHS NIHR' ? 'NHS NIHR' : p.client + ' — ' + p.title.split(' ').slice(0,3).join(' ')}</div>
+      <div class="chart-bar-wrap" title="${p.title}: ${p.demandCount} students predicted">
+        <div class="chart-bar" id="bar-${p.id}" style="background:linear-gradient(90deg,${p.color}cc,${p.color})">
+          <span>${p.demandCount}</span>
+        </div>
+      </div>
+      <div class="chart-count"><span class="badge ${demandClass(p.demand)}" style="padding:.1rem .4rem;font-size:.65rem">${p.demand.substring(0,4)}</span></div>
+    </div>`).join('');
+}
+
+function animateChart() {
+  const max = Math.max(...PROJECTS.map(p => p.demandCount));
+  PROJECTS.forEach((p,i) => {
+    setTimeout(() => {
+      const bar = document.getElementById('bar-'+p.id);
+      if (bar) bar.style.width = ((p.demandCount / max) * 100) + '%';
+    }, i * 120);
+  });
+}
+
+// ── TEAM PANELS ──────────────────────────────────────────────────────────────
+function renderTeams() {
+  const tabsEl = document.getElementById('proj-tabs');
+  const panelsEl = document.getElementById('team-panels');
+  tabsEl.innerHTML = PROJECTS.map((p,i) => `
+    <button class="proj-tab${i===0?' active':''}" data-id="${p.id}" style="--tc:${p.color};${i===0?'border-color:'+p.color+';color:#fff':''}" onclick="selectProject('${p.id}')">
+      ${p.client === 'NHS RUH Bath' ? 'NHS AVT' : p.client === 'NHS NIHR' ? 'NHS NIHR' : p.client} ${p.id.includes('ibm1')?'1':p.id.includes('ibm2')?'2':p.id.includes('eco')?'Eco':p.id.includes('rotork-ai')?'AI/KB':''}
+    </button>`).join('');
+  panelsEl.innerHTML = PROJECTS.map((p,i) => `
+    <div class="team-panel${i===0?' active':''}" id="panel-${p.id}" style="--tc:${p.color}">
+      <div style="margin-bottom:1.25rem;padding:.85rem 1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-left:3px solid ${p.color};border-radius:10px;">
+        <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:${p.color};font-weight:700;margin-bottom:.25rem">${p.client}</div>
+        <div style="font-size:.95rem;font-weight:700;color:#fff">${p.title}</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:.3rem">${p.core.substring(0,120)}…</div>
+      </div>
+      <div class="team-section-header"><span class="team-section-label" style="color:${p.color}">Primary Picks — High Probability</span><span class="team-count-badge">${p.team.primary.length} students</span></div>
+      <div class="team-grid" style="margin-bottom:1.5rem">
+        ${p.team.primary.map(m => `
+          <div class="team-card primary-pick" style="--tc:${p.color}">
+            <div class="team-flag">${m.flag}</div>
+            <div class="team-name">${m.name}</div>
+            <div class="team-role">${m.role}</div>
+            <div class="team-company">${m.co}</div>
+          </div>`).join('')}
+      </div>
+      <div class="team-section-header"><span class="team-section-label">Also Likely — Backup Picks</span><span class="team-count-badge">${p.team.likely.length} students</span></div>
+      <div class="team-grid">
+        ${p.team.likely.map(m => `
+          <div class="team-card">
+            <div class="team-flag">${m.flag}</div>
+            <div class="team-name">${m.name}</div>
+            <div class="team-role">${m.role}</div>
+            <div class="team-company">${m.co}</div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function selectProject(id) {
+  document.querySelectorAll('.proj-tab').forEach(t => {
+    const active = t.dataset.id === id;
+    const p = PROJECTS.find(x => x.id === t.dataset.id);
+    t.classList.toggle('active', active);
+    t.style.borderColor = active ? p.color : '';
+    t.style.color = active ? '#fff' : '';
+  });
+  document.querySelectorAll('.team-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-'+id));
+  const teamsSection = document.getElementById('teams');
+  teamsSection.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ── SCROLL ANIMATIONS ─────────────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // trigger chart animation when chart comes into view
+      if (e.target.closest('#teams')) animateChart();
+    }
+  });
+}, {threshold: 0.1});
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+renderCards(PROJECTS);
+renderChart();
+renderTeams();
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Nav active state on scroll
+const sections = ['projects','teams'];
+window.addEventListener('scroll', () => {
+  const y = window.scrollY + 100;
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const inView = y >= el.offsetTop && y < el.offsetTop + el.offsetHeight;
+    document.querySelector(`.nav-links a[href="#${id}"]`)?.classList.toggle('active', inView);
+  });
+}, {passive:true});
+</script>
+</body>
+</html>
