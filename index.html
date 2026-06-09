@@ -158,6 +158,21 @@ nav{position:sticky;top:0;z-index:200;background:rgba(8,8,18,.88);backdrop-filte
 .team-section-label{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);}
 .team-count-badge{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--muted);font-size:.7rem;font-weight:600;padding:.15rem .55rem;border-radius:20px;}
 
+/* MEMBER SKILLS */
+.member-skills{margin-top:.75rem;padding-top:.65rem;border-top:1px solid rgba(255,255,255,.07);}
+.member-skills-label{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+.member-skills-tags{display:flex;flex-wrap:wrap;gap:.3rem;}
+.member-skill-tag{font-size:.62rem;padding:.15rem .45rem;border-radius:5px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#cbd5e1;
+  opacity:0;transform:translateY(6px);animation:skillFadeUp .35s ease forwards;}
+@keyframes skillFadeUp{to{opacity:1;transform:translateY(0)}}
+
+/* PROJECT SKILLS BAR */
+.proj-needs{margin-bottom:1.25rem;padding:.85rem 1rem;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;}
+.proj-needs-label{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+.proj-needs-tags{display:flex;flex-wrap:wrap;gap:.35rem;}
+.proj-skill-tag{font-size:.68rem;padding:.22rem .55rem;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#e2e8f0;
+  font-weight:500;}
+
 /* SCROLL ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 .fade-up{opacity:0;transform:translateY(28px);}
@@ -290,11 +305,6 @@ footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:rgba(148,163,1
     <h2 class="section-title">Team Prediction Matrix</h2>
     <p class="section-sub">Predicted picks based on each student's industry background, role, and career signals. Select a project to see who's likely on your team.</p>
   </div>
-  <div class="chart-wrap fade-up">
-    <div class="chart-title">Predicted Project Demand — Number of Students Expected to List Each Project in Top 3</div>
-    <div id="demand-chart"></div>
-  </div>
-  <div class="section-divider"></div>
   <div class="fade-up">
     <div style="margin-bottom:1rem;font-size:.85rem;color:var(--muted);">
       <span style="display:inline-flex;align-items:center;gap:.4rem;margin-right:1.5rem;">
@@ -539,6 +549,46 @@ PROJECTS.push(
 );
 </script>
 <script>
+// ── STUDENT SKILLS (from LinkedIn profiles) ──────────────────────────────────
+const STUDENT_SKILLS = {
+  'Natsuki Kimura':['Branding','Email Marketing','CRM','Critical Thinking','Social Media'],
+  'Nikita Bahri':['Acquisition Marketing','HubSpot CRM','User Journeys','Strategic Growth','Portfolio Analysis'],
+  'Shivani Chotai':['Brand Strategy','Marketing Analytics','Content Strategy','Multi-channel Campaigns','Social Media'],
+  'Jaimin Basrani':['Influencer Marketing','Performance Marketing','Content Creation','Social Media','Leadership'],
+  'Aayushi Mehta':['Stakeholder Management','Management Consulting','Talent Acquisition','Problem Structuring','HR Strategy'],
+  'Kartik Bansal':['Strategic Planning','Business Development','Finance','Digital Marketing','Consulting'],
+  'Malcolm Marega':['Program Management','Stakeholder Engagement','Organisational Development','Operations','Leadership'],
+  'Freshy Pornapirak':['Business Strategy','Cross-functional Collaboration','Project Management','Team Management','Customer Satisfaction'],
+  'Mohd Zaman':['Business Development','Operations','Finance','Management','Strategy'],
+  'Shambhavi Upadhyay':['Lead Generation','Marketing Automation','Growth Marketing','Conversion Rate','Content Creation'],
+  'Sourav Kumar':['Go-to-Market Strategy','AI Transformation','Stakeholder Management','Commercial Leadership','Strategy & Ops'],
+  'Wen-Qi Wei':['B2B Sales','International Biz Dev','CRM','Project Coordination','Technical Management'],
+  'Manoj Rawat':['Business Process Improvement','Power BI','SQL','Stakeholder Management','Business Research'],
+  'Meiji Toyasit':['Scrum Master','Agile Methodologies','Team Leadership','Project Management','Process Improvement'],
+  'Gautam Goyal':['Big Data Analytics','SQL','Backend Development','Product Strategy','Consulting'],
+  'Manu Vardhan':['SAP SD/MM','Management Consulting','Risk Management','Auditing','Brand Marketing'],
+  'Pooja Thakur':['Communication','Technology','Educational Leadership','Mentoring','Self-employment'],
+  'Mukull Kedar':['Financial Analysis','DCF Modeling','Business Intelligence','Project Finance','SQL'],
+  'Jung-Chen Chang':['Cross-Functional Leadership','Operational Process Mgmt','Construction','Finance','Team Leadership'],
+  'Mayank Kumar':['Business Strategy','Critical Thinking','IP Law','Legal Assistance','Strategy'],
+  'Ruthvik Rajkumar':['Automotive Engineering','Sales','Entrepreneurship','Automotive Design','Product Development'],
+  'Sonuc Erbas':['Renewable Energy','Business Planning','Electrical Engineering','Project Management','Management'],
+  'Supawat Limpongsanuruk':['Sales Engineering','Negotiation','Data Analysis','Team Management','Operations'],
+  'Tamilarasan Durai':['Predictive Analytics','Risk Modeling','Root Cause Analysis','Cost Reduction','Banking Solutions'],
+  'Vibhanshu Tiwari':['Transfer Pricing','Financial Analysis','Business Strategy','Pitch Deck Dev','Entrepreneurship'],
+  'Jacob Chinsumran':['AI for Business','IT Governance','Digital Transformation','Strategy','Artificial Intelligence'],
+  'Shauryashrestha Karpatne':['Commercial Insurance','Business Operations','Risk Management','General Insurance','Sports Management'],
+  'Navya Mittal':['Product Strategy','Wealth Management','Financial Markets','Product Innovation','Entrepreneurship'],
+  'Patheo Mitra':['Financial Auditing','Risk Management','KPI Reporting','Project Management','Presentation Skills'],
+  'Anuja Diwikar':['Investor Relations','Private Equity','Fundraising','Alternative Investments','Communication'],
+  'Ishita Jain':['Clinical Strategy','Product Management','Market Research','Quality Improvement','Healthcare'],
+  'Arpan Patel':['Pharma Consulting','Business Strategy','Market Strategy','Budgeting & Forecasting','Entrepreneurship'],
+  'Aditi Bhardwaj':['Brand Management','Social Media Marketing','Product Launch','Research & Development','Pharma Sales'],
+  'Yumiko Okada':['Immigration Consulting','Global Mobility','Strategic Management','Migration Management','Relocation'],
+  'Tai-Hsuan Wen':['Strategic Operations','Cross-Cultural Communication','Crisis Management','Intercultural Comms','Resilience'],
+  'Mia Liu':['Healthcare Management','Business Strategy','Stakeholder Management','Operations','Leadership'],
+};
+
 // ── HELPERS ──────────────────────────────────────────────────────────────────
 const diffClass = d => ({'Medium':'badge-diff-med','Medium-High':'badge-diff-medh','High':'badge-diff-high','Very High':'badge-diff-vhigh'}[d]||'badge-diff-med');
 const demandClass = d => ({'Oversubscribed':'badge-demand-over','Moderate':'badge-demand-mod','Accessible':'badge-demand-acc'}[d]||'badge-demand-mod');
@@ -690,24 +740,36 @@ function renderTeams() {
         <div style="font-size:.95rem;font-weight:700;color:#fff">${p.title}</div>
         <div style="font-size:.78rem;color:var(--muted);margin-top:.3rem">${p.core.substring(0,120)}…</div>
       </div>
+      <div class="proj-needs">
+        <div class="proj-needs-label">Project Needs</div>
+        <div class="proj-needs-tags">${p.skills.slice(0,5).map(s=>`<span class="proj-skill-tag" style="border-color:${p.color}33;color:${p.color}">${s}</span>`).join('')}</div>
+      </div>
       <div class="team-section-header"><span class="team-section-label" style="color:${p.color}">Primary Picks — High Probability</span><span class="team-count-badge">${p.team.primary.length} students</span></div>
       <div class="team-grid" style="margin-bottom:1.5rem">
-        ${p.team.primary.map(m => `
+        ${p.team.primary.map((m,mi) => `
           <div class="team-card primary-pick" style="--tc:${p.color}">
             <div class="team-flag">${m.flag}</div>
             <div class="team-name">${m.name}</div>
             <div class="team-role">${m.role}</div>
             <div class="team-company">${m.co}</div>
+            ${(STUDENT_SKILLS[m.name]||[]).length ? `<div class="member-skills">
+              <div class="member-skills-label">Top Skills</div>
+              <div class="member-skills-tags">${(STUDENT_SKILLS[m.name]||[]).map((s,si)=>`<span class="member-skill-tag" style="animation-delay:${(mi*5+si)*40}ms">${s}</span>`).join('')}</div>
+            </div>` : ''}
           </div>`).join('')}
       </div>
       <div class="team-section-header"><span class="team-section-label">Also Likely — Backup Picks</span><span class="team-count-badge">${p.team.likely.length} students</span></div>
       <div class="team-grid">
-        ${p.team.likely.map(m => `
+        ${p.team.likely.map((m,mi) => `
           <div class="team-card">
             <div class="team-flag">${m.flag}</div>
             <div class="team-name">${m.name}</div>
             <div class="team-role">${m.role}</div>
             <div class="team-company">${m.co}</div>
+            ${(STUDENT_SKILLS[m.name]||[]).length ? `<div class="member-skills">
+              <div class="member-skills-label">Top Skills</div>
+              <div class="member-skills-tags">${(STUDENT_SKILLS[m.name]||[]).map((s,si)=>`<span class="member-skill-tag" style="animation-delay:${(mi*5+si)*40}ms">${s}</span>`).join('')}</div>
+            </div>` : ''}
           </div>`).join('')}
       </div>
     </div>`).join('');
@@ -731,15 +793,12 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.classList.add('visible');
-      // trigger chart animation when chart comes into view
-      if (e.target.closest('#teams')) animateChart();
     }
   });
 }, {threshold: 0.1});
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
 renderCards(PROJECTS);
-renderChart();
 renderTeams();
 
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
