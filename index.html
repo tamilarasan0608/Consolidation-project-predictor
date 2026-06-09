@@ -201,6 +201,65 @@ nav{position:sticky;top:0;z-index:200;background:rgba(8,8,18,.88);backdrop-filte
 
 /* FOOTER */
 footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:rgba(148,163,184,.4);border-top:1px solid var(--border);position:relative;z-index:1;}
+
+/* MODE TOGGLE */
+.mode-toggle{display:flex;gap:.25rem;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:.2rem;}
+.mode-btn{padding:.3rem .75rem;border-radius:7px;font-size:.75rem;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .2s;}
+.mode-btn.active{background:rgba(59,130,246,.2);color:#93c5fd;border:none;}
+
+/* STUDENT 360 MODAL */
+.s360-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:400;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s;}
+.s360-overlay.open{opacity:1;pointer-events:all;}
+.s360-modal{background:#0f0f1e;border:1px solid rgba(255,255,255,.14);border-radius:20px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;transform:translateY(16px) scale(.98);transition:transform .25s;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent;}
+.s360-overlay.open .s360-modal{transform:translateY(0) scale(1);}
+.s360-accent{height:4px;border-radius:20px 20px 0 0;}
+.s360-body{padding:1.75rem;}
+.s360-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem;gap:1rem;}
+.s360-flag{font-size:2rem;line-height:1;margin-bottom:.35rem;}
+.s360-name{font-size:1.2rem;font-weight:700;color:#fff;letter-spacing:-.02em;}
+.s360-role{font-size:.8rem;color:var(--muted);margin-top:.15rem;}
+.s360-close{background:rgba(255,255,255,.07);border:1px solid var(--border);color:var(--muted);width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all .2s;}
+.s360-close:hover{background:rgba(255,255,255,.12);color:#fff;}
+.s360-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:1.25rem;}
+.s360-chip{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:.6rem .85rem;}
+.s360-chip-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.2rem;}
+.s360-chip-val{font-size:.85rem;color:#fff;font-weight:600;}
+.s360-section{margin-bottom:1.1rem;}
+.s360-section-title{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem;}
+.s360-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.s360-achievement{background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.2);border-radius:9px;padding:.85rem;font-size:.83rem;color:#6ee7b7;line-height:1.5;}
+.s360-skills-wrap{display:flex;flex-wrap:wrap;gap:.35rem;}
+.s360-skill{font-size:.7rem;padding:.22rem .55rem;border-radius:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#cbd5e1;}
+.fit-bars{display:flex;flex-direction:column;gap:.5rem;}
+.fit-row{display:flex;align-items:center;gap:.75rem;}
+.fit-proj-name{font-size:.72rem;color:var(--muted);width:130px;flex-shrink:0;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fit-bar-wrap{flex:1;background:rgba(255,255,255,.05);border-radius:4px;height:16px;overflow:hidden;}
+.fit-bar{height:100%;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:.4rem;transition:width .8s cubic-bezier(.16,1,.3,1);}
+.fit-bar span{font-size:.62rem;font-weight:700;color:#fff;}
+
+/* COHORT ANALYTICS */
+#cohort{background:rgba(255,255,255,.012);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.cohort-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
+.cohort-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem;}
+.cohort-card-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:1rem;}
+.ct-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;}
+.ct-label{font-size:.75rem;color:var(--muted);width:120px;flex-shrink:0;text-align:right;}
+.ct-bar-wrap{flex:1;background:rgba(255,255,255,.05);border-radius:4px;height:18px;overflow:hidden;}
+.ct-bar{height:100%;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:.4rem;}
+.ct-bar span{font-size:.65rem;font-weight:700;color:#fff;}
+.ct-count{font-size:.72rem;color:var(--muted);width:22px;flex-shrink:0;}
+.donut-wrap{display:flex;align-items:center;gap:1.25rem;}
+.donut-legend{display:flex;flex-direction:column;gap:.5rem;flex:1;}
+.donut-legend-item{display:flex;align-items:center;gap:.5rem;font-size:.75rem;color:var(--muted);}
+.donut-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.donut-legend-val{margin-left:auto;font-weight:700;color:#fff;}
+
+/* TEAM HEALTH */
+.health-bar-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.25rem;padding:.85rem 1rem;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);border-radius:10px;}
+.health-item{text-align:center;}
+.health-val{font-size:1.3rem;font-weight:800;letter-spacing:-.04em;color:#fff;line-height:1;}
+.health-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-top:.2rem;}
+.career-badge{font-size:.62rem;padding:.15rem .45rem;border-radius:5px;font-weight:700;letter-spacing:.04em;}
 </style>
 
 <!-- ===== BODY ===== -->
@@ -212,6 +271,10 @@ footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:rgba(148,163,1
       <li><a href="#projects">Projects</a></li>
       <li><a href="#teams">Team Predictor</a></li>
     </ul>
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="btn-student" onclick="setMode('student')">Student</button>
+      <button class="mode-btn" id="btn-faculty" onclick="setMode('faculty')">Faculty</button>
+    </div>
     <div class="nav-badge">Class of <strong>37</strong> &nbsp;|&nbsp; <strong>9</strong> Projects</div>
   </div>
 </nav>
@@ -230,6 +293,15 @@ footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:rgba(148,163,1
     <div class="hstat"><div class="hstat-n">3</div><div class="hstat-l">Picks Each</div></div>
   </div>
 </section>
+<!-- COHORT ANALYTICS (faculty mode) -->
+<section id="cohort" class="section faculty-only" style="display:none">
+  <div class="section-header fade-up">
+    <h2 class="section-title">Cohort Intelligence</h2>
+    <p class="section-sub">Who is this class — by career type, sector, seniority, and international exposure.</p>
+  </div>
+  <div class="cohort-grid fade-up" id="cohort-grid"></div>
+</section>
+
 <!-- PROJECTS SECTION -->
 <section id="projects" class="section">
   <div class="section-header fade-up">
@@ -299,6 +371,36 @@ footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:rgba(148,163,1
   </div>
 </div>
 
+<!-- STUDENT 360 MODAL -->
+<div class="s360-overlay" id="s360-overlay">
+  <div class="s360-modal" id="s360-modal">
+    <div class="s360-accent" id="s360-accent"></div>
+    <div class="s360-body">
+      <div class="s360-head">
+        <div>
+          <div class="s360-flag" id="s360-flag"></div>
+          <div class="s360-name" id="s360-name"></div>
+          <div class="s360-role" id="s360-role"></div>
+        </div>
+        <button class="s360-close" id="s360-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="s360-meta" id="s360-meta"></div>
+      <div class="s360-section">
+        <div class="s360-section-title">Key Achievement</div>
+        <div class="s360-achievement" id="s360-achievement"></div>
+      </div>
+      <div class="s360-section">
+        <div class="s360-section-title">All Skills</div>
+        <div class="s360-skills-wrap" id="s360-skills"></div>
+      </div>
+      <div class="s360-section">
+        <div class="s360-section-title">Project Fit Scores</div>
+        <div class="fit-bars" id="s360-fitbars"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- TEAMS SECTION -->
 <section id="teams" class="section">
   <div class="section-header fade-up">
@@ -319,7 +421,7 @@ footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:rgba(148,163,1
   </div>
 </section>
 
-<footer>Bath Full-Time MBA 2025/26 &nbsp;&bull;&nbsp; Consolidation Project Intelligence &nbsp;&bull;&nbsp; Prediction model based on class profile analysis</footer>
+<footer>Bath Full-Time MBA 2025/26 &nbsp;&bull;&nbsp; Consolidation Project Intelligence &nbsp;&bull;&nbsp; Prediction model based on LinkedIn profile analysis</footer>
 <script>
 const PROJECTS = [
   {id:'ibm1',client:'IBM',title:'Positioning the AI Race League',subtitle:'F1 of Student AI Competitions',color:'#3B82F6',
@@ -814,6 +916,282 @@ window.addEventListener('scroll', () => {
     document.querySelector(`.nav-links a[href="#${id}"]`)?.classList.toggle('active', inView);
   });
 }, {passive:true});
+</script>
+<script>
+// ── STUDENT PROFILES (enriched from LinkedIn) ────────────────────────────────
+const STUDENT_PROFILES = {
+  'Tamilarasan Durai':{yearsExp:4.5,careerType:'Technical',sector:'Banking & Tech',seniority:'Senior',intlExp:false,achievement:'80% defect reduction & 70% process automation at Westpac via Infosys',education:'BTech CS – SRM University',allSkills:['Predictive Analytics','Risk Modeling','Root Cause Analysis','Cost Reduction','Banking Solutions','SQL','Process Automation','Systems Engineering','Cross-functional Delivery']},
+  'Natsuki Kimura':{yearsExp:11,careerType:'Marketing',sector:'B2B Manufacturing',seniority:'Senior',intlExp:true,achievement:'YoY 175% Amazon sales at Bosch — Best Performance Award 2023',education:'BA International Relations – Ritsumeikan University',allSkills:['Branding','Email Marketing','CRM','Critical Thinking','Social Media','Campaign Management','Digital Marketing','Customer Retention','E-commerce']},
+  'Nikita Bahri':{yearsExp:5,careerType:'Marketing',sector:'D2C / Digital Marketing',seniority:'Mid',intlExp:false,achievement:'Managed £170K+/month media spend; highest scholarship in cohort; won Best Pitch at Bath MBA',education:'BBA – Amity University',allSkills:['Acquisition Marketing','HubSpot CRM','User Journeys','Strategic Growth','Portfolio Analysis','Performance Marketing','SEO','Brand Strategy','Growth Hacking','AI Workflow Automation']},
+  'Shivani Chotai':{yearsExp:8,careerType:'Marketing',sector:'Entertainment & Finance',seniority:'Senior',intlExp:false,achievement:'Grew Yash Raj Films audience 80M→120M; Chartered Accountant background',education:'CA – ICAI + BCom – NMIMS',allSkills:['Brand Strategy','Marketing Analytics','Content Strategy','Multi-channel Campaigns','Social Media','Financial Analysis','Audit','Digital Marketing','Campaign Management']},
+  'Jaimin Basrani':{yearsExp:3,careerType:'Founder',sector:'Fashion & Media',seniority:'Mid',intlExp:false,achievement:'Co-founded BACKSPACED clothing brand & Banoffee Media agency',education:'BBA Marketing – NMIMS',allSkills:['Influencer Marketing','Performance Marketing','Content Creation','Social Media','Leadership','Brand Building','D2C Marketing','Partnerships']},
+  'Aayushi Mehta':{yearsExp:3.5,careerType:'HR & Talent',sector:'HR / Recruiting',seniority:'Mid',intlExp:true,achievement:'Senior Talent Acquisition across US and India; global IT leadership hiring',education:'BBA – Symbiosis International University',allSkills:['Stakeholder Management','Management Consulting','Talent Acquisition','Problem Structuring','HR Strategy','Leadership Hiring','Recruitment Analytics','ATS Tools']},
+  'Kartik Bansal':{yearsExp:5,careerType:'Operations',sector:'Retail',seniority:'Mid',intlExp:false,achievement:'Led digital transformation of family retail business; 20% customer growth via app & digital',education:'BCom Marketing – DAV College',allSkills:['Strategic Planning','Business Development','Finance','Digital Marketing','Consulting','Operations Management','Customer Growth','SKU Analysis']},
+  'Malcolm Marega':{yearsExp:17,careerType:'Operations',sector:'Energy & ESG',seniority:'Executive',intlExp:true,achievement:'Founded East Africa Institute of Welding; 25–35% annual growth; ESG & energy advisory',education:'Self-directed + Bath MBA',allSkills:['Program Management','Stakeholder Engagement','Organisational Development','Operations','Leadership','ESG','Business Development','Systems Thinking','HSSE']},
+  'Freshy Pornapirak':{yearsExp:3,careerType:'Operations',sector:'EdTech & Logistics',seniority:'Mid',intlExp:false,achievement:'40%+ profit margins on executive bootcamp projects at Skooldio; 17% shipment uplift at Flash Express',education:'Economics & International Business – Thammasat University',allSkills:['Business Strategy','Cross-functional Collaboration','Project Management','Team Management','Customer Satisfaction','Business Development','Operations Improvement']},
+  'Mohd Zaman':{yearsExp:4,careerType:'Operations',sector:'Hospitality',seniority:'Mid',intlExp:false,achievement:'Operations & Business Development Lead at Gulab Resort',education:'BCom Honours – Shaheed Bhagat Singh College',allSkills:['Business Development','Operations','Finance','Management','Strategy']},
+  'Shambhavi Upadhyay':{yearsExp:4,careerType:'Marketing',sector:'B2B Marketing',seniority:'Mid',intlExp:false,achievement:'Grew 50,000+ social media followers; B2B lead generation at Bharat Bijlee',education:'BBA – NMIMS',allSkills:['Lead Generation','Marketing Automation','Growth Marketing','Conversion Rate','Content Creation','B2B Marketing','Email Marketing','SEO']},
+  'Sourav Kumar':{yearsExp:5,careerType:'Technical',sector:'SaaS & Banking',seniority:'Mid',intlExp:false,achievement:'30% pipeline growth & 25% revenue uplift at PIPRA Solutions; ex-Barclays & Cognizant',education:'BTech CS – SRM University',allSkills:['Go-to-Market Strategy','AI Transformation','Stakeholder Management','Commercial Leadership','Strategy & Ops','Software Engineering','API Integration','GenAI Workflows']},
+  'Wen-Qi Wei':{yearsExp:5,careerType:'Operations',sector:'B2B Manufacturing',seniority:'Mid',intlExp:true,achievement:'Project Sales Representative in international B2B manufacturing at Young Yak Enterprise',education:'Taiwan',allSkills:['B2B Sales','International Biz Dev','CRM','Project Coordination','Technical Management']},
+  'Manoj Rawat':{yearsExp:3.5,careerType:'Technical',sector:'Operations & Analytics',seniority:'Mid',intlExp:false,achievement:'Power BI dashboards reducing reporting turnaround; SQL-driven operational analytics',education:'Political Science – Deshbandhu College',allSkills:['Business Process Improvement','Power BI','SQL','Stakeholder Management','Business Research','Data Analytics','Operations Analysis']},
+  'Meiji Toyasit':{yearsExp:4,careerType:'Technical',sector:'Energy & Finance IT',seniority:'Mid',intlExp:false,achievement:'Saved 48 workdays/year via knowledge transition at ExxonMobil; Certified Scrum Master',education:'BSc Statistics – Chulalongkorn University',allSkills:['Scrum Master','Agile Methodologies','Team Leadership','Project Management','Process Improvement','Business Analysis','Financial IT']},
+  'Gautam Goyal':{yearsExp:4,careerType:'Technical',sector:'Fintech & SaaS',seniority:'Mid',intlExp:false,achievement:'Senior Consultant at Nextiva; large-scale payment systems at JPMorgan Chase',education:'BTech CS – Chandigarh University',allSkills:['Big Data Analytics','SQL','Backend Development','Product Strategy','Consulting','Java','Distributed Systems','API Development']},
+  'Manu Vardhan':{yearsExp:7,careerType:'Technical',sector:'SAP Consulting & IT',seniority:'Senior',intlExp:false,achievement:'End-to-end SAP SD/MM P2P & O2C cycles; SOC1/SOC2 audits at Deloitte',education:'BTech CS – SRM University + PGDM – IMI Kolkata',allSkills:['SAP SD/MM','Management Consulting','Risk Management','Auditing','Brand Marketing','Process Automation','IT Governance','ABAP Development']},
+  'Pooja Thakur':{yearsExp:10,careerType:'Founder',sector:'Education & Tech',seniority:'Senior',intlExp:false,achievement:'Co-founded and ran coaching institute for 11+ years; Alliance Manager at Cloud202',education:'BE IT – RGPV',allSkills:['Communication','Technology','Educational Leadership','Mentoring','Self-employment','Cloud Partnerships','Alliance Management']},
+  'Mukull Kedar':{yearsExp:3,careerType:'Finance',sector:'Construction & Project Finance',seniority:'Mid',intlExp:false,achievement:'$70K cost savings (4–6% of project value) at BASE4 via supplier renegotiation & DCF modelling',education:'BE Automobile Engineering – Govt College of Engineering',allSkills:['Financial Analysis','DCF Modeling','Business Intelligence','Project Finance','SQL','LBO Modeling','Capital Allocation','Cost-Benefit Analysis']},
+  'Jung-Chen Chang':{yearsExp:7,careerType:'Operations',sector:'Construction',seniority:'Senior',intlExp:false,achievement:'Grew TaSanYu Construction 3–4× revenue through financial crisis & pandemic',education:'BSc Accounting & IS – Asia University Taiwan',allSkills:['Cross-Functional Leadership','Operational Process Mgmt','Construction','Finance','Team Leadership','Business Recovery','Stakeholder Coordination']},
+  'Mayank Kumar':{yearsExp:6.5,careerType:'Legal & Strategy',sector:'IP Law & Consulting',seniority:'Senior',intlExp:false,achievement:'Led national IP radio campaign; 6+ years High Court litigation support at Gajria & Co',education:'BBA LLB IP Law – KiiT University',allSkills:['Business Strategy','Critical Thinking','IP Law','Legal Assistance','Strategy','Brand Compliance','Advertising Law']},
+  'Ruthvik Rajkumar':{yearsExp:10,careerType:'Founder',sector:'Automotive & Advanced Materials',seniority:'Executive',intlExp:false,achievement:'13× revenue growth at SEFAR India; founded Valence Advanced Materials',education:'BE Automobile Engineering – VTU',allSkills:['Automotive Engineering','Sales','Entrepreneurship','Automotive Design','Product Development','B2B Business Development','Revenue Growth']},
+  'Sonuc Erbas':{yearsExp:10,careerType:'Founder',sector:'Renewable Energy',seniority:'Executive',intlExp:false,achievement:'Co-founded Sonsuz Enerji; 10+ years across electrical distribution & renewables in Turkey',education:'BE Electrical & Electronics – Erciyes University',allSkills:['Renewable Energy','Business Planning','Electrical Engineering','Project Management','Management','Energy Strategy','Government Relations']},
+  'Supawat Limpongsanuruk':{yearsExp:6,careerType:'Operations',sector:'Industrial Manufacturing',seniority:'Senior',intlExp:false,achievement:'6+ years Senior Sales Engineer at Sumitomo Electric Hardmetal Thailand',education:'BSc Automotive Engineering – Thai-Nichi Institute of Technology',allSkills:['Sales Engineering','Negotiation','Data Analysis','Team Management','Operations','B2B Sales','Technical Sales']},
+  'Vibhanshu Tiwari':{yearsExp:4,careerType:'Finance',sector:'Tax & Advisory',seniority:'Mid',intlExp:false,achievement:'Gold Medal Financial Management SRCC; 4+ years Transfer Pricing at EY India',education:'BCom – Shri Ram College of Commerce',allSkills:['Transfer Pricing','Financial Analysis','Business Strategy','Pitch Deck Development','Entrepreneurship','Tax Advisory','BEPS & Pillar Two']},
+  'Jacob Chinsumran':{yearsExp:5,careerType:'Finance',sector:'IT Audit & Governance',seniority:'Senior',intlExp:true,achievement:'5 years IT Audit at KPMG Thailand across cybersecurity, ITGC & application controls',education:'BCom Accounting – Chulalongkorn University',allSkills:['AI for Business','IT Governance','Digital Transformation','Strategy','Artificial Intelligence','Cybersecurity','ITGC Auditing']},
+  'Shauryashrestha Karpatne':{yearsExp:5,careerType:'Operations',sector:'Insurance & Sports',seniority:'Senior',intlExp:false,achievement:'Scaled Protect India Insurance from GM to Head of Business & Ops in 4 years',education:'BSc Sports Management – IISM',allSkills:['Commercial Insurance','Business Operations','Risk Management','General Insurance','Sports Management','Client Relations','Strategic Growth']},
+  'Navya Mittal':{yearsExp:3.5,careerType:'Finance',sector:'Financial Markets & Media',seniority:'Mid',intlExp:true,achievement:'Reuters correspondent covering Asia-Pacific markets; product strategy at Edelweiss AMC',education:'BBA Finance – FLAME University + PG Diploma – ACJ Chennai',allSkills:['Product Strategy','Wealth Management','Financial Markets','Product Innovation','Entrepreneurship','Investor Relations','Content Strategy']},
+  'Patheo Mitra':{yearsExp:8,careerType:'Finance',sector:'Financial Audit',seniority:'Senior',intlExp:false,achievement:'8+ years financial audit leadership at Guha & Matilal; CA Intermediate',education:'BCom Honours – University of Calcutta + CA Intermediate – ICAI',allSkills:['Financial Auditing','Risk Management','KPI Reporting','Project Management','Presentation Skills','GAAP','Compliance','Internal Controls']},
+  'Anuja Diwikar':{yearsExp:9,careerType:'Finance',sector:'Private Equity & IR',seniority:'Senior',intlExp:true,achievement:'Led Japan LP fundraising at Finex HK; bilingual English-Japanese (JLPT N2)',education:'BSc CS + Japanese Language – Anabuki Business College Japan',allSkills:['Investor Relations','Private Equity','Fundraising','Alternative Investments','Communication','Japanese Language','Cross-border BD','Android Development']},
+  'Ishita Jain':{yearsExp:6,careerType:'Founder',sector:'Healthcare & Nutrition',seniority:'Senior',intlExp:true,achievement:'Founded HealthyVie Consultancy; 60K+ social followers; clinical nutritionist in Chicago',education:'MS Clinical Nutrition – Illinois State University',allSkills:['Clinical Strategy','Product Management','Market Research','Quality Improvement','Healthcare','Nutrition Science','Regulatory Compliance','Community Engagement']},
+  'Arpan Patel':{yearsExp:4,careerType:'Finance',sector:'Pharma Consulting',seniority:'Mid',intlExp:false,achievement:'Promoted 33% faster at ZS Associates; GenAI integration for 35–40% efficiency gain',education:'BPharm – Baddi University + Registered Pharmacist',allSkills:['Pharma Consulting','Business Strategy','Market Strategy','Budgeting & Forecasting','Entrepreneurship','Power BI','Rare Disease Strategy','Competitive Intelligence']},
+  'Aditi Bhardwaj':{yearsExp:6,careerType:'Marketing',sector:'Pharmaceutical Sales',seniority:'Senior',intlExp:false,achievement:'Launched oncology therapy at Astellas Pharma; engaged 200+ HCPs to drive uptake',education:'BPharm – Jamia Hamdard',allSkills:['Brand Management','Social Media Marketing','Product Launch','Research & Development','Pharma Sales','Market Access','Healthcare Marketing','Go-to-Market']},
+  'Yumiko Okada':{yearsExp:20,careerType:'Consulting',sector:'Immigration & Global Mobility',seniority:'Executive',intlExp:true,achievement:'4.8/5 client satisfaction managing 500+ annual cases at Newland Chase Japan; 16+ years immigration',education:'BA – Jissen Women\'s University Japan',allSkills:['Immigration Consulting','Global Mobility','Strategic Management','Migration Management','Relocation','Cross-cultural Communication','Japan Market Expertise']},
+  'Tai-Hsuan Wen':{yearsExp:10,careerType:'Operations',sector:'Defence & Intelligence',seniority:'Executive',intlExp:true,achievement:'Major & Intelligence Officer ROC Army; led 120+ personnel; strategic crisis response',education:'BE Engineering – Chung Cheng Institute of Technology NDU',allSkills:['Strategic Operations','Cross-Cultural Communication','Crisis Management','Intercultural Comms','Resilience','Intelligence Analysis','Supply Chain Resilience','Risk Forecasting']},
+  'Mia Liu':{yearsExp:5,careerType:'Operations',sector:'Healthcare Management',seniority:'Mid',intlExp:true,achievement:'Assistant to Chairman at Malo Medical Management; healthcare operations in China',education:'China',allSkills:['Healthcare Management','Business Strategy','Stakeholder Management','Operations','Leadership']},
+  'Olivia Wu':{yearsExp:5,careerType:'Technical',sector:'Software & Product',seniority:'Mid',intlExp:true,achievement:'Product Manager at CyberLink Corp Taiwan',education:'Taiwan',allSkills:['Product Management','Software Development','Strategy','Innovation','Cross-functional Teams']},
+};
+
+// ── FIT SCORE ENGINE ──────────────────────────────────────────────────────────
+const SECTOR_FIT = {
+  ibm1:  {Marketing:9,Founder:8,'HR & Talent':5,Technical:4,Operations:5,Finance:3,'Legal & Strategy':3,Consulting:4,Healthcare:3},
+  ibm2:  {Technical:9,Operations:8,Founder:5,Marketing:4,'HR & Talent':4,Finance:4,Consulting:5,'Legal & Strategy':3,Healthcare:3},
+  aecom: {Technical:9,Operations:7,Finance:6,Consulting:7,Founder:5,Marketing:4,'HR & Talent':3,'Legal & Strategy':4,Healthcare:3},
+  leadership:{Finance:9,'HR & Talent':8,'Legal & Strategy':9,Operations:7,Consulting:7,Marketing:4,Technical:4,Founder:5,Healthcare:4},
+  lloyds:{Finance:9,Technical:8,Operations:7,Consulting:8,'HR & Talent':5,Marketing:4,Founder:4,'Legal & Strategy':5,Healthcare:3},
+  'nhs-avt':{Healthcare:10,Operations:7,Finance:6,Consulting:8,Marketing:5,Technical:5,Founder:6,'HR & Talent':4,'Legal & Strategy':3},
+  'nhs-nihr':{Healthcare:10,Operations:8,Finance:6,Consulting:7,Technical:5,Marketing:3,Founder:4,'HR & Talent':3,'Legal & Strategy':3},
+  'rotork-eco':{Technical:10,Founder:8,Operations:7,Finance:5,Consulting:6,Marketing:4,'HR & Talent':3,'Legal & Strategy':3,Healthcare:3},
+  'rotork-ai':{Technical:9,Operations:8,Finance:6,Consulting:7,Marketing:7,Founder:6,'HR & Talent':4,'Legal & Strategy':3,Healthcare:3},
+};
+function computeFitScore(studentName, projectId) {
+  const sp = STUDENT_PROFILES[studentName];
+  const proj = PROJECTS.find(p => p.id === projectId);
+  if (!sp || !proj) return 50;
+  const projSkillsLower = proj.skills.map(s => s.toLowerCase());
+  const studentSkillsLower = (sp.allSkills||[]).map(s => s.toLowerCase());
+  let overlap = 0;
+  projSkillsLower.forEach(ps => {
+    const words = ps.split(/\s+/);
+    if (studentSkillsLower.some(ss => words.some(w => w.length > 3 && ss.includes(w)))) overlap++;
+  });
+  const skillScore = Math.round((overlap / projSkillsLower.length) * 40);
+  const sectorScore = Math.round(((SECTOR_FIT[projectId]?.[sp.careerType] || 5) / 10) * 35);
+  const expBonus = sp.yearsExp >= 8 ? 10 : sp.yearsExp >= 4 ? 7 : 4;
+  const intlBonus = sp.intlExp ? 5 : 0;
+  return Math.min(99, Math.max(20, skillScore + sectorScore + expBonus + intlBonus));
+}
+
+// ── STUDENT 360 MODAL ─────────────────────────────────────────────────────────
+const CAREER_COLORS = {Marketing:'#EC4899',Technical:'#3B82F6',Finance:'#10B981',Operations:'#F59E0B',Founder:'#A855F7','HR & Talent':'#06B6D4',Consulting:'#F43F5E','Legal & Strategy':'#F97316',Healthcare:'#6366F1'};
+function openStudentModal(name, flag, role, co) {
+  const sp = STUDENT_PROFILES[name];
+  const cc = CAREER_COLORS[sp?.careerType] || '#94a3b8';
+  document.getElementById('s360-accent').style.background = cc;
+  document.getElementById('s360-flag').textContent = flag;
+  document.getElementById('s360-name').textContent = name;
+  document.getElementById('s360-role').textContent = role + (co ? ' · ' + co : '');
+  const meta = document.getElementById('s360-meta');
+  if (sp) {
+    const senBg = {Junior:'rgba(148,163,184,.15)',Mid:'rgba(59,130,246,.15)',Senior:'rgba(16,185,129,.15)',Executive:'rgba(245,158,11,.15)'}[sp.seniority]||'rgba(255,255,255,.06)';
+    const senColor = {Junior:'#94a3b8',Mid:'#93c5fd',Senior:'#6ee7b7',Executive:'#fcd34d'}[sp.seniority]||'#fff';
+    meta.innerHTML = `
+      <div class="s360-chip"><div class="s360-chip-label">Career Type</div><div class="s360-chip-val" style="color:${cc}">${sp.careerType}</div></div>
+      <div class="s360-chip"><div class="s360-chip-label">Seniority</div><div class="s360-chip-val" style="color:${senColor}">${sp.seniority}</div></div>
+      <div class="s360-chip"><div class="s360-chip-label">Years Exp</div><div class="s360-chip-val">${sp.yearsExp}+ yrs</div></div>
+      <div class="s360-chip"><div class="s360-chip-label">Int'l Exp</div><div class="s360-chip-val">${sp.intlExp ? '✓ Multi-country' : 'Domestic'}</div></div>
+      <div class="s360-chip" style="grid-column:1/-1"><div class="s360-chip-label">Sector</div><div class="s360-chip-val">${sp.sector}</div></div>
+      <div class="s360-chip" style="grid-column:1/-1"><div class="s360-chip-label">Education</div><div class="s360-chip-val" style="font-size:.78rem">${sp.education}</div></div>
+    `;
+    document.getElementById('s360-achievement').textContent = sp.achievement;
+    document.getElementById('s360-skills').innerHTML = (sp.allSkills||[]).map(s=>`<span class="s360-skill">${s}</span>`).join('');
+    const fitBars = PROJECTS.map(p => {
+      const score = computeFitScore(name, p.id);
+      const barW = score + '%';
+      const barColor = score >= 75 ? '#10B981' : score >= 55 ? '#3B82F6' : '#94a3b8';
+      return `<div class="fit-row">
+        <div class="fit-proj-name">${p.client} — ${p.title.split(' ').slice(0,3).join(' ')}</div>
+        <div class="fit-bar-wrap"><div class="fit-bar" style="width:0;background:${barColor}" data-w="${barW}"><span>${score}%</span></div></div>
+      </div>`;
+    }).join('');
+    document.getElementById('s360-fitbars').innerHTML = fitBars;
+  } else {
+    meta.innerHTML = `<div class="s360-chip" style="grid-column:1/-1"><div class="s360-chip-label">Role</div><div class="s360-chip-val">${role}</div></div>`;
+    document.getElementById('s360-achievement').textContent = 'Full LinkedIn profile not yet available.';
+    document.getElementById('s360-skills').innerHTML = (STUDENT_SKILLS[name]||[]).map(s=>`<span class="s360-skill">${s}</span>`).join('');
+    document.getElementById('s360-fitbars').innerHTML = '';
+  }
+  document.getElementById('s360-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.fit-bar[data-w]').forEach(bar => {
+      setTimeout(() => { bar.style.width = bar.dataset.w; }, 80);
+    });
+  });
+}
+document.getElementById('s360-close').addEventListener('click', closeStudentModal);
+document.getElementById('s360-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeStudentModal(); });
+function closeStudentModal() {
+  document.getElementById('s360-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── COHORT ANALYTICS ──────────────────────────────────────────────────────────
+function renderCohortAnalytics() {
+  const allStudents = Object.entries(STUDENT_PROFILES);
+  // Career type counts
+  const ctCounts = {};
+  allStudents.forEach(([,sp]) => { ctCounts[sp.careerType] = (ctCounts[sp.careerType]||0)+1; });
+  const ctSorted = Object.entries(ctCounts).sort((a,b)=>b[1]-a[1]);
+  const ctMax = ctSorted[0][1];
+  const ctRows = ctSorted.map(([type,count]) => {
+    const col = CAREER_COLORS[type]||'#94a3b8';
+    return `<div class="ct-row">
+      <div class="ct-label">${type}</div>
+      <div class="ct-bar-wrap"><div class="ct-bar" style="width:${Math.round(count/ctMax*100)}%;background:${col}33;border-right:2px solid ${col}"><span style="color:${col}">${count}</span></div></div>
+    </div>`;
+  }).join('');
+  // Seniority counts
+  const senOrder = ['Junior','Mid','Senior','Executive'];
+  const senCounts = {};
+  allStudents.forEach(([,sp]) => { senCounts[sp.seniority] = (senCounts[sp.seniority]||0)+1; });
+  const senColors = {Junior:'#94a3b8',Mid:'#3B82F6',Senior:'#10B981',Executive:'#F59E0B'};
+  const senRows = senOrder.filter(s=>senCounts[s]).map(s => {
+    const col = senColors[s];
+    return `<div class="ct-row">
+      <div class="ct-label">${s}</div>
+      <div class="ct-bar-wrap"><div class="ct-bar" style="width:${Math.round((senCounts[s]||0)/allStudents.length*100)}%;background:${col}33;border-right:2px solid ${col}"><span style="color:${col}">${senCounts[s]}</span></div></div>
+    </div>`;
+  }).join('');
+  // Intl exp
+  const intlCount = allStudents.filter(([,sp])=>sp.intlExp).length;
+  const intlPct = Math.round(intlCount/allStudents.length*100);
+  // Avg years
+  const avgYrs = (allStudents.reduce((a,[,sp])=>a+sp.yearsExp,0)/allStudents.length).toFixed(1);
+  // Top skills
+  const skillFreq = {};
+  allStudents.forEach(([,sp]) => (sp.allSkills||[]).forEach(s => { skillFreq[s]=(skillFreq[s]||0)+1; }));
+  const topSkills = Object.entries(skillFreq).sort((a,b)=>b[1]-a[1]).slice(0,14);
+  const skillMax = topSkills[0][1];
+  const skillRows = topSkills.map(([s,c]) => `<div class="ct-row">
+    <div class="ct-label" style="font-size:.68rem">${s}</div>
+    <div class="ct-bar-wrap"><div class="ct-bar" style="width:${Math.round(c/skillMax*100)}%;background:rgba(168,85,247,.25);border-right:2px solid #A855F7"><span style="color:#d8b4fe">${c}</span></div></div>
+  </div>`).join('');
+
+  document.getElementById('cohort-grid').innerHTML = `
+    <div class="cohort-card">
+      <div class="cohort-card-title">Career Type Breakdown</div>
+      ${ctRows}
+    </div>
+    <div class="cohort-card">
+      <div class="cohort-card-title">Seniority Distribution</div>
+      ${senRows}
+      <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+        <div style="text-align:center"><div style="font-size:1.6rem;font-weight:800;color:#fff">${avgYrs}</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:.15rem">Avg Years Exp</div></div>
+        <div style="text-align:center"><div style="font-size:1.6rem;font-weight:800;color:#06B6D4">${intlPct}%</div><div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-top:.15rem">Int'l Experience</div></div>
+      </div>
+    </div>
+    <div class="cohort-card">
+      <div class="cohort-card-title">Top Skills Across Cohort</div>
+      ${skillRows}
+    </div>`;
+}
+
+// ── TEAM HEALTH SCORES ────────────────────────────────────────────────────────
+function teamHealthHTML(proj) {
+  const all = [...proj.team.primary, ...proj.team.likely];
+  const uniqueNat = new Set(all.map(m=>m.nat)).size;
+  const types = proj.team.primary.map(m => STUDENT_PROFILES[m.name]?.careerType).filter(Boolean);
+  const uniqueTypes = new Set(types).size;
+  const projSkills = proj.skills;
+  let covered = 0;
+  projSkills.forEach(ps => {
+    const w = ps.toLowerCase().split(/\s+/);
+    if (proj.team.primary.some(m => {
+      const ss = (STUDENT_PROFILES[m.name]?.allSkills||STUDENT_SKILLS[m.name]||[]).map(s=>s.toLowerCase());
+      return w.some(ww => ww.length>3 && ss.some(s=>s.includes(ww)));
+    })) covered++;
+  });
+  const skillCoverage = Math.round(covered/projSkills.length*100);
+  return `<div class="health-bar-wrap">
+    <div class="health-item"><div class="health-val" style="color:#10B981">${skillCoverage}%</div><div class="health-label">Skill Coverage</div></div>
+    <div class="health-item"><div class="health-val" style="color:#3B82F6">${uniqueTypes}/${proj.team.primary.length}</div><div class="health-label">Career Diversity</div></div>
+    <div class="health-item"><div class="health-val" style="color:#A855F7">${uniqueNat}</div><div class="health-label">Nationalities</div></div>
+  </div>`;
+}
+
+// ── OVERRIDE renderTeams WITH ENHANCED VERSION ────────────────────────────────
+function renderTeams() {
+  const tabsEl = document.getElementById('proj-tabs');
+  const panelsEl = document.getElementById('team-panels');
+  tabsEl.innerHTML = PROJECTS.map((p,i) => `
+    <button class="proj-tab${i===0?' active':''}" data-id="${p.id}" style="--tc:${p.color};${i===0?'border-color:'+p.color+';color:#fff':''}" onclick="selectProject('${p.id}')">
+      ${p.client==='NHS RUH Bath'?'NHS AVT':p.client==='NHS NIHR'?'NHS NIHR':p.client} ${p.id.includes('ibm1')?'1':p.id.includes('ibm2')?'2':p.id.includes('eco')?'Eco':p.id.includes('rotork-ai')?'AI/KB':''}
+    </button>`).join('');
+
+  panelsEl.innerHTML = PROJECTS.map((p,i) => {
+    const mkCard = (m, isPrimary, mi) => {
+      const sp = STUDENT_PROFILES[m.name];
+      const cc = sp ? (CAREER_COLORS[sp.careerType]||'#94a3b8') : '#94a3b8';
+      const fitScore = sp ? computeFitScore(m.name, p.id) : null;
+      const fitColor = fitScore >= 75 ? '#10B981' : fitScore >= 55 ? '#3B82F6' : '#94a3b8';
+      return `<div class="team-card${isPrimary?' primary-pick':''}" style="--tc:${p.color};cursor:pointer" onclick="openStudentModal('${m.name.replace(/'/g,"\\'")}','${m.flag}','${m.role.replace(/'/g,"\\'")}','${m.co.replace(/'/g,"\\'")}')">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.4rem">
+          <div class="team-flag">${m.flag}</div>
+          ${sp ? `<span style="font-size:.62rem;font-weight:700;padding:.12rem .4rem;border-radius:5px;background:${cc}20;color:${cc};border:1px solid ${cc}40">${sp.careerType}</span>` : ''}
+        </div>
+        <div class="team-name">${m.name}</div>
+        <div class="team-role">${m.role}</div>
+        <div class="team-company">${m.co}</div>
+        ${sp ? `<div style="display:flex;align-items:center;gap:.4rem;margin-top:.6rem;padding-top:.5rem;border-top:1px solid rgba(255,255,255,.07)">
+          <div style="flex:1;background:rgba(255,255,255,.05);border-radius:3px;height:5px;overflow:hidden"><div style="width:${fitScore}%;height:100%;background:${fitColor};border-radius:3px"></div></div>
+          <span style="font-size:.62rem;font-weight:700;color:${fitColor}">${fitScore}% fit</span>
+        </div>` : ''}
+        ${(STUDENT_SKILLS[m.name]||[]).length ? `<div class="member-skills">
+          <div class="member-skills-label">Top Skills</div>
+          <div class="member-skills-tags">${(STUDENT_SKILLS[m.name]||[]).map((s,si)=>`<span class="member-skill-tag" style="animation-delay:${(mi*5+si)*40}ms">${s}</span>`).join('')}</div>
+        </div>` : ''}
+      </div>`;
+    };
+    return `<div class="team-panel${i===0?' active':''}" id="panel-${p.id}" style="--tc:${p.color}">
+      <div style="margin-bottom:1.25rem;padding:.85rem 1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-left:3px solid ${p.color};border-radius:10px;">
+        <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:${p.color};font-weight:700;margin-bottom:.25rem">${p.client}</div>
+        <div style="font-size:.95rem;font-weight:700;color:#fff">${p.title}</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:.3rem">${p.core.substring(0,120)}…</div>
+      </div>
+      <div class="proj-needs">
+        <div class="proj-needs-label">Project Needs</div>
+        <div class="proj-needs-tags">${p.skills.slice(0,5).map(s=>`<span class="proj-skill-tag" style="border-color:${p.color}33;color:${p.color}">${s}</span>`).join('')}</div>
+      </div>
+      ${teamHealthHTML(p)}
+      <div class="team-section-header"><span class="team-section-label" style="color:${p.color}">Primary Picks — High Probability</span><span class="team-count-badge">${p.team.primary.length} students</span></div>
+      <div class="team-grid" style="margin-bottom:1.5rem">${p.team.primary.map((m,mi)=>mkCard(m,true,mi)).join('')}</div>
+      <div class="team-section-header"><span class="team-section-label">Also Likely — Backup Picks</span><span class="team-count-badge">${p.team.likely.length} students</span></div>
+      <div class="team-grid">${p.team.likely.map((m,mi)=>mkCard(m,false,mi)).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── MODE TOGGLE ───────────────────────────────────────────────────────────────
+function setMode(mode) {
+  document.getElementById('btn-student').classList.toggle('active', mode==='student');
+  document.getElementById('btn-faculty').classList.toggle('active', mode==='faculty');
+  document.querySelectorAll('.faculty-only').forEach(el => { el.style.display = mode==='faculty' ? '' : 'none'; });
+  if (mode==='faculty') {
+    renderCohortAnalytics();
+    document.getElementById('cohort').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+// ── RE-INIT ───────────────────────────────────────────────────────────────────
+renderTeams();
 </script>
 </body>
 </html>
